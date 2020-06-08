@@ -15,14 +15,11 @@ namespace Observer
         public class SubscribedEventArgs : EventArgs
         {
             public bool Subscribed { get; set; }
-            public Receiver Receiver { get; set; }
         }
 
         public Receiver()
         {
             InitializeComponent();
-            //Znam da mi fali referenca na Formu
-
         }
 
         public void OnMessageReady(object source, Form1.MessageReadyArgs arg)
@@ -34,13 +31,12 @@ namespace Observer
 
         protected virtual void OnSubscribed(bool subscribed)
         {
-            Subscribed?.Invoke(this, new SubscribedEventArgs() { Subscribed = subscribed, Receiver = this });
+            Subscribed?.Invoke(this, new SubscribedEventArgs() { Subscribed = subscribed});
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
            OnSubscribed(checkBox1.Checked);
-           
         }
     }
 }

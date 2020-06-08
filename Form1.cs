@@ -21,7 +21,6 @@ namespace Observer
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -43,11 +42,14 @@ namespace Observer
             MessageReady?.Invoke(this, new MessageReadyArgs() { Message = message });
         }
 
-        public void OnSubscribed(object source, Receiver.SubscribedEventArgs args)
+        public void OnSubscribed(object source, Receiver.SubscribedEventArgs arg)
         {
-            if (args.Subscribed)
-                MessageReady += args.Receiver.OnMessageReady;
-            else MessageReady -= args.Receiver.OnMessageReady;
+            if(source is Receiver)
+            {
+                if (arg.Subscribed)
+                    MessageReady += ((Receiver)source).OnMessageReady;
+                else MessageReady -= ((Receiver)source).OnMessageReady;
+            }
         }
     }
 
